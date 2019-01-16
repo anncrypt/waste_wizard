@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import wastewizard from '../apis/wastewizard';
 import Header from './Header';
+import SearchBar from './SearchBar';
 
 class App extends React.Component {
   state = { data: [] };
@@ -25,8 +26,8 @@ class App extends React.Component {
     return (
       <div>
         <Header />
-        {/* <SearchBar onSubmit={this.onSearchSubmit} />
-         */}
+        <SearchBar onSubmit={this.onSearchSubmit}/> 
+      
       </div>
     );
   }

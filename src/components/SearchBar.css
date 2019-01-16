@@ -1,0 +1,47 @@
+.wrapper {
+  max-width: 1600px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+.searchInput {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.hidden {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+.inputField {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.inputField input {
+  width: 90%;
+  height: 90%;
+  border: 1px solid lightgrey;
+  box-shadow: none;
+  border-radius: 2px;
+}
+
+.btn {
+  /* width: 20%; */
+  height: 90%;
+  padding: 10px 15px;
+  cursor: pointer;
+  background: #24975E;
+  border-radius: none;
+  color: #f0f0f0;
+  font-size: 1.5rem;
+  border-radius: 2px;
+}

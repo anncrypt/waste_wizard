@@ -1,17 +1,33 @@
+import './SearchBar.css';
 import React from 'react';
 
 class SearchBar extends React.Component {
-  // state = { data: [] };
+  state = { searchTerm: '' };
 
+  onFormSubmit = (e) => {
+    e.preventDefault();
+
+    this.props.onSubmit(this.state.searchTerm);
+    this.setState({ searchTerm: '' });
   }
 
   render() {
 
     return (
-      <div>
-        {/* <SearchBar onSubmit={this.onSearchSubmit} />
-        <ResultList />
-        <ImageList images={this.state.images} /> */}
+      <div className="wrapper">
+        <form className="searchInput" onSubmit={this.onFormSubmit}>
+          <div className="inputField">
+            <label className="hidden">Input Field</label>
+            <input
+              type="text"
+              value={this.state.searchTerm}
+              onChange={(e) => this.setState({ searchTerm: e.target.value })}
+            />
+          </div>
+          <button className="btn">
+            <i className="fas fa-search"></i>
+          </button>
+        </form>
       </div>
     );
   }

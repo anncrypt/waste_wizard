@@ -3,22 +3,41 @@ import './App.css';
 import wastewizard from '../apis/wastewizard';
 import Header from './Header';
 import SearchBar from './SearchBar';
+import ResultList from './ResultList';
 
 class App extends React.Component {
-  state = { data: [] };
+  state = { 
+    data: [],
+    searchResults: []
+  };
 
-  onSearchSubmit = async (searchTerm) => {
+  getWizardData = async () => {
     const response = await wastewizard.get('/cc_sr_v1/data/swm_waste_wizard_APR', {
       params: { limit: 1000 }
     });
-    
-    // this.setState({ data: response.data.results });
-    console.log(response);
-    // this.setState({ data: response });
+    // console.log(response);
+    this.setState({ data: response.data });
   }
 
+  onSearchSubmit = (searchTerm) => {
+    const wasteDataArr = this.state.data;
+    const results = [];
+
+    wasteDataArr.forEach(function (item) {
+      if (item.keywords.indexOf(searchTerm) !== -1) {
+        results.push(item);
+      }
+    });
+    
+    console.log(results);
+    this.setState({ searchResults: results });
+  }
+
+
   componentDidMount() {
-    this.onSearchSubmit();
+    
+    this.getWizardData();
+    // this.onSearchSubmit();
   }
 
   render() {
@@ -27,7 +46,9 @@ class App extends React.Component {
       <div>
         <Header />
         <SearchBar onSubmit={this.onSearchSubmit}/> 
-      
+        <div className="wrapper">
+          <ResultList resultList={this.state.searchResults} />
+        </div>
       </div>
     );
   }

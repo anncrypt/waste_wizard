@@ -1,0 +1,26 @@
+.searchResult {
+
+  display: flex;
+  /* justify-content: space-around; */
+  justify-content: space-between;
+}
+
+.searchResultInstruction {
+  width: 40%;
+}
+
+.searchResultInstruction ul {
+  padding: 0;
+
+}
+
+.searchResult h2 {
+  width: 60%;
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+
+.searchResult li {
+ 
+}
+

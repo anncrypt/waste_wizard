@@ -3,11 +3,16 @@ import SearchResult from './SearchResult';
 
 class ResultList extends React.Component {
 
-  render() {
+  render(props) {
 
     return (
       <div>
-        <SearchResult />
+        {
+          this.props.resultList.map( (result) => {
+            console.log(result);
+            return <SearchResult searchInfo={result}/>
+          })
+        }
       </div>
     );
   }

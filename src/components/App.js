@@ -1,9 +1,27 @@
 import React from 'react';
 import './App.css';
 import wastewizard from '../apis/wastewizard';
+// import firebase from 'firebase';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import ResultList from './ResultList';
+
+
+
+// // Initialize Firebase
+// var config = {
+//   apiKey: "AIzaSyC9GN-Fyykg4AdYRGPfDmVVRirmVy0cI6Y",
+//   authDomain: "my-secret-diary-51f63.firebaseapp.com",
+//   databaseURL: "https://my-secret-diary-51f63.firebaseio.com",
+//   projectId: "my-secret-diary-51f63",
+//   storageBucket: "my-secret-diary-51f63.appspot.com",
+//   messagingSenderId: "632428234268"
+// };
+// firebase.initializeApp(config);
+
+
+// const provider = new firebase.auth.GoogleAuthProvider();
+// const auth = firebase.auth();
 
 class App extends React.Component {
   state = { 

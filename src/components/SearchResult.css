@@ -3,10 +3,11 @@
   display: flex;
   /* justify-content: space-around; */
   justify-content: space-between;
+  align-items: flex-start;
 }
 
 .searchResultInstruction {
-  width: 40%;
+  width: 50%;
 }
 
 .searchResultInstruction ul {
@@ -15,12 +16,12 @@
 }
 
 .searchResult h2 {
-  width: 60%;
+  width: 50%;
   font-size: 1.1rem;
   font-weight: normal;
 }
 
 .searchResult li {
- 
+  font-size: 1rem;
 }
 

@@ -1,5 +1,6 @@
 import './SearchBar.css';
 import React from 'react';
+import Search from './icons/Search';
 
 class SearchBar extends React.Component {
   state = { searchTerm: '' };
@@ -25,7 +26,8 @@ class SearchBar extends React.Component {
             />
           </div>
           <button className="btn">
-            <i className="fas fa-search"></i>
+            {/* <i className="fas fa-search"></i> */}
+            <Search />
           </button>
         </form>
       </div>

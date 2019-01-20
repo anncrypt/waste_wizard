@@ -3,7 +3,12 @@
   display: flex;
   /* justify-content: space-around; */
   justify-content: space-between;
-  align-items: flex-start;
+  /* align-items: flex-start; */
+  align-items: center;
+}
+
+.iconWrapper {
+  
 }
 
 .searchResultInstruction {
@@ -24,4 +29,5 @@
 .searchResult li {
   font-size: 1rem;
 }
+
 

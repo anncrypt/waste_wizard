@@ -1,8 +1,8 @@
 import './SearchBar.css';
-import React from 'react';
+import React, { Component } from 'react';
 import Search from './icons/Search';
 
-class SearchBar extends React.Component {
+class SearchBar extends Component {
   state = { searchTerm: '' };
 
   onFormSubmit = (e) => {

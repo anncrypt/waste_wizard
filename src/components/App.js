@@ -1,33 +1,40 @@
-import React from 'react';
 import './App.css';
+import React, { Component } from 'react';
 import wastewizard from '../apis/wastewizard';
-// import firebase from 'firebase';
+
 import Header from './Header';
 import SearchBar from './SearchBar';
 import ResultList from './ResultList';
+import FavList from './FavList';
 
-
-
-// // Initialize Firebase
-// var config = {
-//   apiKey: "AIzaSyC9GN-Fyykg4AdYRGPfDmVVRirmVy0cI6Y",
-//   authDomain: "my-secret-diary-51f63.firebaseapp.com",
-//   databaseURL: "https://my-secret-diary-51f63.firebaseio.com",
-//   projectId: "my-secret-diary-51f63",
-//   storageBucket: "my-secret-diary-51f63.appspot.com",
-//   messagingSenderId: "632428234268"
-// };
-// firebase.initializeApp(config);
-
-
-// const provider = new firebase.auth.GoogleAuthProvider();
-// const auth = firebase.auth();
-
-class App extends React.Component {
+class App extends Component {
   state = { 
     data: [],
-    searchResults: []
+    searchResults: [],
+    favourites: []
   };
+
+  toggleFavourite = (name) => {
+    // perform search
+    const currentIndex = this.state.favourites.indexOf(name);
+    const isAlreadyFavourite = currentIndex !== -1;
+    let updatedFavourites = this.state.favourites;
+
+    console.log('currentIndex', currentIndex);
+    console.log("favs before", updatedFavourites);
+    // if it's the favourites - remove it
+    if (isAlreadyFavourite) {
+      updatedFavourites.splice(currentIndex, 1);
+    } else {
+      updatedFavourites.push(name);
+    }
+    console.log("favs after", updatedFavourites);
+
+    this.setState({
+      favourites: updatedFavourites
+    });
+  }
+
 
   getWizardData = async () => {
     const response = await wastewizard.get('/cc_sr_v1/data/swm_waste_wizard_APR', {
@@ -51,21 +58,34 @@ class App extends React.Component {
     this.setState({ searchResults: results });
   }
 
-
   componentDidMount() {
-    
     this.getWizardData();
-    // this.onSearchSubmit();
   }
 
   render() {
+    const {
+      favourites,
+      searchResults,
+    } = this.state;
+
+    const favouriteResults = searchResults.filter(searchResult => favourites.indexOf(searchResult.title) !== -1);
+    console.log("FAVOURITE RESULTS");
+    console.log(favouriteResults);
 
     return (
       <div>
         <Header />
         <SearchBar onSubmit={this.onSearchSubmit}/> 
         <div className="wrapper">
-          <ResultList resultList={this.state.searchResults} />
+          <ResultList
+            // isForFavourites={false}
+            favourites={this.state.favourites}
+            onListItemClick={this.toggleFavourite}
+            resultList={this.state.searchResults} 
+          />
+          { favouriteResults.length !== 0 && <FavList
+            favouriteResultList={favouriteResults}
+          /> }
         </div>
       </div>
     );

@@ -27,6 +27,9 @@ class App extends Component {
   // I am using titles of objects from the provided JSON 
   // instead of ids, because not all of them have an id.
 
+  // If the search result that was clicked
+  // is in the favourites, it will be removed
+  // otherwise, it will be added to favourites
   toggleFavourite = (name) => {
     // perform search
     const currentIndex = this.state.favourites.indexOf(name);
@@ -48,6 +51,10 @@ class App extends Component {
     });
   }
 
+  // try to get WasteWizard data from the API
+  // if it succeeds, the data is saved into state
+  // if there was an error, error is saved into state
+  // and a message is displayed to a user
   getWizardData = async () => {
     try {
       const response = await wastewizard.get('/cc_sr_v1/data/swm_waste_wizard_APR', {
@@ -59,7 +66,7 @@ class App extends Component {
         errors: {
           // keep the other errors, only override one
           ...this.state.errors,
-          err_fetchingData: true,
+          err_fetchingData: error,
         }
       })
     }
@@ -72,7 +79,9 @@ class App extends Component {
     })
   }
 
-  // 
+  // perform search within the data,
+  // based on a keyword and update search results
+  // in the app state
   onSearchSubmit = (searchTerm) => {
     const wasteDataArr = this.state.data;
     const results = [];

@@ -5,8 +5,6 @@ import SearchResult from './SearchResult';
 import ContentWrapper from './ContentWrapper';
 
 const FavList = (props) => {
-  console.log('haha favlist');
-  console.log(props.favouriteResultList)
   return (
     <StyledFavList>
       <ContentWrapper>

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Star from './icons/Star';
 
 const SearchResult = (props) => {
+  // parse encoded HTML received from the Waste Wizard data
+  // in order to display it to the user
   const htmlDecode = (inputString) => {
     const doc = new DOMParser().parseFromString(inputString, "text/html");
     return doc.documentElement.textContent;

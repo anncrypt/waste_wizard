@@ -9,10 +9,11 @@ class SearchBar extends Component {
 
   onFormSubmit = (e) => {
     e.preventDefault();
-
     this.props.onSubmit(this.state.searchTerm);
   }
 
+  // update the input with the new value
+  // and clear results if the new value is an empty string
   handleInputChange = (e) => {
     const val = e.target.value;
     this.setState({ searchTerm: val });

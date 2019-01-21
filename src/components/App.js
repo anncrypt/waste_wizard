@@ -115,7 +115,10 @@ const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   height: 85vh;
-`;
 
+  @media (max-width: 991px) {
+    height: 90vh;
+  }
+`;
 
 export default App;

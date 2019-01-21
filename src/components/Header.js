@@ -27,6 +27,15 @@ const StyledHeader = styled.header`
     font-family: sans-serif;
     font-weight: bold;
   }
+
+  @media (max-width: 991px) {
+    margin: 8px 0;
+    height: 10vh;
+
+    > h1 {
+      font-size: 1.7rem;
+    }
+  }
 `;
 
 export default Header;

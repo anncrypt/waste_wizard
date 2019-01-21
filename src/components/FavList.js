@@ -4,7 +4,6 @@ import SearchResult from './SearchResult';
 import ContentWrapper from './ContentWrapper';
 
 const FavList = (props) => {
-  
   return (
     <StyledFavList>
       <ContentWrapper>

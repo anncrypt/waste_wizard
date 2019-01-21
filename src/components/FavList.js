@@ -1,25 +1,38 @@
-import './FavList.css';
-import React, { Component } from 'react';
+import styled from 'styled-components';
+import React from 'react';
 import SearchResult from './SearchResult';
+import ContentWrapper from './ContentWrapper';
 
-// class FavList extends Component {
 const FavList = (props) => {
   
   return (
-    <div className="favList">
-      <h2>Favourites</h2>
-      <div className="favListContainer">
-      {
-        props.favouriteResultList.map((result) => {
-          return <SearchResult
-            isFavourite={true}
-            searchInfo={result}
-          />
-        })
-      }
-      </div>
-    </div>
+    <StyledFavList>
+      <ContentWrapper>
+        <Heading>Favourites</Heading>
+        <FavListContainer>
+        {
+          props.favouriteResultList.map((result) => {
+            return <SearchResult
+              key={`fav-${result.title}`}
+              isFavourite={true}
+              searchInfo={result}
+            />
+          })
+        }
+        </FavListContainer>
+      </ContentWrapper>
+    </StyledFavList>
   );
 }
+
+// STYLED COMPONENTS
+const StyledFavList = styled.div`
+  background-color: #F7FEF9;
+  max-width: 100%;
+`;
+
+const Heading = styled.h2``;
+
+const FavListContainer = styled.div``;
 
 export default FavList;

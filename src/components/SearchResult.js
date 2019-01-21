@@ -1,4 +1,4 @@
-import './SearchResult.css';
+import styled from 'styled-components';
 import React, { Component } from 'react';
 import Star from './icons/Star';
 
@@ -9,29 +9,80 @@ class SearchResult extends Component {
   }
 
   render() {
-    // const {}
-
     return (
-      <div className="searchResult">
-        <div className="titleContainer">
-          <div className="iconWrapper"
-              onClick={() => { 
-                console.log('lol');
+      <StyledSearchResult>
+        <TitleContainer>
+          <IconWrapper
+              onClick={() => {
                 this.props.onStarClick(this.props.searchInfo.title) }}
-                >
+          >
             <Star 
               isFavourite={this.props.isFavourite}
             />
-          </div>
+          </IconWrapper>
           <p>{this.props.searchInfo.title}</p>
-        </div>
+        </TitleContainer>
         {/* UL list received from JSON goes here */}
-        <div className="searchResultInstruction" dangerouslySetInnerHTML={{ __html: this.htmlDecode(this.props.searchInfo.body) }}>
-          {/* {this.htmlDecode(this.props.searchInfo.body)} */}
-        </div>
-      </div>
+        <SearchResultInstruction
+          dangerouslySetInnerHTML={{ __html: this.htmlDecode(this.props.searchInfo.body) }}
+        />
+      </StyledSearchResult>
     );
   }
 }
+
+// STYLED COMPONENTS
+const StyledSearchResult = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  margin-bottom: 2rem;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+
+  width: 50%;
+
+  > p {
+    font-size: 1.1rem;
+    margin-top: 0;
+  }
+`;
+
+const SearchResultInstruction = styled.div`
+  width: 50%;
+  padding-left: 20px;
+
+  > ul {
+    padding: 0;
+    margin: 0;
+
+    > li {
+      font-size: 1rem;
+
+      > a {
+        text-decoration: none;
+        color: #24975E;
+      }
+
+      > a:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+`;
+
+const IconWrapper = styled.div`
+  width: 40px;
+
+  > svg {
+    margin-top: 0.3rem;
+  }
+`;
+
+
 
 export default SearchResult;

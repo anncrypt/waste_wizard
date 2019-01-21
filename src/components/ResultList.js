@@ -1,20 +1,28 @@
-import React, { Component } from 'react';
+import styled from 'styled-components';
+import React from 'react';
 import SearchResult from './SearchResult';
+import ContentWrapper from './ContentWrapper';
 
 const ResultList = (props) => {
     return (
-      <div className="resultList">
+      <StyledResultList>
+        <ContentWrapper>
         {
           props.resultList.map( (result) => {
             return <SearchResult
+              key={`regular-${result.title}`}
               isFavourite={props.favourites.indexOf(result.title) !== -1}
               searchInfo={result}
               onStarClick={props.onListItemClick}
             />
           })
         }
-      </div>
+        </ContentWrapper>
+      </StyledResultList>
     );
 }
+
+// STYLED COMPONENTS
+const StyledResultList = styled.div``;
 
 export default ResultList;

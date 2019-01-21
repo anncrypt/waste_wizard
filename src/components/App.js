@@ -14,6 +14,9 @@ class App extends Component {
     favourites: JSON.parse(localStorage.getItem('favourites')) || [],
   };
 
+  // I am using titles of objects from the provided JSON 
+  // instead of ids, because not all of them have an id.
+
   toggleFavourite = (name) => {
     // perform search
     const currentIndex = this.state.favourites.indexOf(name);
@@ -74,7 +77,7 @@ class App extends Component {
       <div>
         <Header />
         <SearchBar onSubmit={this.onSearchSubmit}/> 
-        <div className="wrapper">
+        {/* <div className="wrapper"> */}
           <ResultList
             favourites={this.state.favourites}
             onListItemClick={this.toggleFavourite}
@@ -83,7 +86,7 @@ class App extends Component {
           { favouriteResults.length !== 0 && <FavList
             favouriteResultList={favouriteResults}
           /> }
-        </div>
+        {/* </div> */}
       </div>
     );
   }

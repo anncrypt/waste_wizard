@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
 import SearchResult from './SearchResult';
 
-class ResultList extends Component {
-
-  render(props) {
-
+const ResultList = (props) => {
     return (
-      <div>
+      <div className="resultList">
         {
-          this.props.resultList.map( (result) => {
-            {/* console.log(result); */}
+          props.resultList.map( (result) => {
             return <SearchResult
-              isFavourite={this.props.favourites.indexOf(result.title) !== -1}
+              isFavourite={props.favourites.indexOf(result.title) !== -1}
               searchInfo={result}
-              onStarClick={this.props.onListItemClick}
+              onStarClick={props.onListItemClick}
             />
           })
         }
       </div>
     );
-  }
 }
 
 export default ResultList;

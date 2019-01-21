@@ -11,7 +11,7 @@ class App extends Component {
   state = { 
     data: [],
     searchResults: [],
-    favourites: []
+    favourites: JSON.parse(localStorage.getItem('favourites')) || [],
   };
 
   toggleFavourite = (name) => {
@@ -20,21 +20,19 @@ class App extends Component {
     const isAlreadyFavourite = currentIndex !== -1;
     let updatedFavourites = this.state.favourites;
 
-    console.log('currentIndex', currentIndex);
-    console.log("favs before", updatedFavourites);
     // if it's the favourites - remove it
     if (isAlreadyFavourite) {
       updatedFavourites.splice(currentIndex, 1);
     } else {
       updatedFavourites.push(name);
     }
-    console.log("favs after", updatedFavourites);
+
+    localStorage.setItem('favourites', JSON.stringify(updatedFavourites));
 
     this.setState({
       favourites: updatedFavourites
     });
   }
-
 
   getWizardData = async () => {
     const response = await wastewizard.get('/cc_sr_v1/data/swm_waste_wizard_APR', {
@@ -68,9 +66,9 @@ class App extends Component {
       searchResults,
     } = this.state;
 
-    const favouriteResults = searchResults.filter(searchResult => favourites.indexOf(searchResult.title) !== -1);
-    console.log("FAVOURITE RESULTS");
-    console.log(favouriteResults);
+    const favouriteResults = searchResults.filter(result => { 
+      return favourites.indexOf(result.title) !== -1
+    });
 
     return (
       <div>
@@ -78,7 +76,6 @@ class App extends Component {
         <SearchBar onSubmit={this.onSearchSubmit}/> 
         <div className="wrapper">
           <ResultList
-            // isForFavourites={false}
             favourites={this.state.favourites}
             onListItemClick={this.toggleFavourite}
             resultList={this.state.searchResults} 

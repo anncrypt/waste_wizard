@@ -14,6 +14,10 @@ class App extends Component {
     searchResults: [],
     // Get the favourites list from localStorage, if it exists
     favourites: JSON.parse(localStorage.getItem('favourites')) || [],
+    errors: {
+      err_fetchingData: false,
+      // some other errors may go here
+    }
   };
   
   componentDidMount() {
@@ -45,10 +49,21 @@ class App extends Component {
   }
 
   getWizardData = async () => {
-    const response = await wastewizard.get('/cc_sr_v1/data/swm_waste_wizard_APR', {
-      params: { limit: 1000 }
-    });
-    this.setState({ data: response.data });
+    try {
+      const response = await wastewizard.get('/cc_sr_v1/data/swm_waste_wizard_APR', {
+        params: { limit: 1000 }
+      });
+      this.setState({ data: response.data });
+    } catch (error) {
+      this.setState({
+        errors: {
+          // keep the other errors, only override one
+          ...this.state.errors,
+          err_fetchingData: true,
+        }
+      })
+    }
+    
   }
 
   clearResults = () => {
@@ -85,23 +100,26 @@ class App extends Component {
       <StyledApp>
         <Header />
         <MainContent>
-        <SearchBar 
-          onSubmit={this.onSearchSubmit}
-          clearResults={this.clearResults}
-        /> 
-        <ResultList
-          favourites={this.state.favourites}
-          onListItemClick={this.toggleFavourite}
-          resultList={this.state.searchResults} 
-        />
-        { favouriteResults.length !== 0 && <FavList
-          favouriteResultList={favouriteResults}
-          // reusing this method here,
-          // because in this case
-          // it will work for removing favourites too
-          // without modification.
-          onListItemClick={this.toggleFavourite}
-        /> }
+          { this.state.errors.err_fetchingData && <ErrorMessage>
+            There's been an error getting information on the waste disposal rules. Please refresh the app or try again later.
+          </ErrorMessage> }
+          <SearchBar 
+            onSubmit={this.onSearchSubmit}
+            clearResults={this.clearResults}
+          /> 
+          <ResultList
+            favourites={this.state.favourites}
+            onListItemClick={this.toggleFavourite}
+            resultList={this.state.searchResults} 
+          />
+          { favouriteResults.length !== 0 && <FavList
+            favouriteResultList={favouriteResults}
+            // reusing this method here,
+            // because in this case
+            // it will work for removing favourites too
+            // without modification.
+            onListItemClick={this.toggleFavourite}
+          /> }
         </MainContent>
       </StyledApp>
     );
@@ -110,6 +128,12 @@ class App extends Component {
 
 // STYLED COMPONENTS
 const StyledApp = styled.div``;
+
+const ErrorMessage = styled.p`
+  text-align: center;
+  font-size: 1.2rem;
+  color: tomato;
+`;
 
 const MainContent = styled.div`
   display: flex;

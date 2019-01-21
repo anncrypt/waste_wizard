@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
+import PropTypes from 'prop-types';
 import SearchResult from './SearchResult';
 import ContentWrapper from './ContentWrapper';
 
@@ -20,6 +21,12 @@ const ResultList = (props) => {
         </ContentWrapper>
       </StyledResultList>
     );
+}
+
+ResultList.propTypes = {
+  resultList: PropTypes.array,
+  favourites: PropTypes.array,
+  onListItemClick: PropTypes.func.isRequired,
 }
 
 // STYLED COMPONENTS

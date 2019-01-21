@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import React from 'react';
+import PropTypes from 'prop-types';
 import SearchResult from './SearchResult';
 import ContentWrapper from './ContentWrapper';
 
 const FavList = (props) => {
+  console.log('haha favlist');
+  console.log(props.favouriteResultList)
   return (
     <StyledFavList>
       <ContentWrapper>
@@ -23,6 +26,11 @@ const FavList = (props) => {
       </ContentWrapper>
     </StyledFavList>
   );
+}
+
+FavList.propTypes = {
+  favouriteResultList: PropTypes.arrayOf(PropTypes.object),
+  onListItemClick: PropTypes.func.isRequired,
 }
 
 // STYLED COMPONENTS

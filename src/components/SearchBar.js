@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Search from './icons/Search';
 import ContentWrapper from './ContentWrapper';
 
@@ -45,6 +46,11 @@ class SearchBar extends Component {
   }
 }
 
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  clearResults: PropTypes.func.isRequired,
+}
+
 // STYLED COMPONENTS
 const StyledSearchBar = styled.div``;
 
@@ -57,7 +63,6 @@ const SearchForm = styled.form`
 `;
 
 const InputField = styled.div`
-  ${'' /* width: 100%; */}
   flex-grow: 1;
   margin: 0 auto;
 

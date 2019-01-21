@@ -1,34 +1,39 @@
 import styled from 'styled-components';
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Star from './icons/Star';
 
-class SearchResult extends Component {
-  htmlDecode = (inputString) => {
+const SearchResult = (props) => {
+  const htmlDecode = (inputString) => {
     const doc = new DOMParser().parseFromString(inputString, "text/html");
     return doc.documentElement.textContent;
   }
 
-  render() {
-    return (
-      <StyledSearchResult>
-        <TitleContainer>
-          <IconWrapper
-              onClick={() => {
-                this.props.onStarClick(this.props.searchInfo.title) }}
-          >
-            <Star 
-              isFavourite={this.props.isFavourite}
-            />
-          </IconWrapper>
-          <p>{this.props.searchInfo.title}</p>
-        </TitleContainer>
-        {/* UL list received from JSON goes here */}
-        <SearchResultInstruction
-          dangerouslySetInnerHTML={{ __html: this.htmlDecode(this.props.searchInfo.body) }}
-        />
-      </StyledSearchResult>
-    );
-  }
+  return (
+    <StyledSearchResult>
+      <TitleContainer>
+        <IconWrapper
+            onClick={() => {
+              props.onStarClick(props.searchInfo.title) }}
+        >
+          <Star 
+            isFavourite={props.isFavourite}
+          />
+        </IconWrapper>
+        <p>{props.searchInfo.title}</p>
+      </TitleContainer>
+      {/* UL list received from JSON goes here */}
+      <SearchResultInstruction
+        dangerouslySetInnerHTML={{ __html: htmlDecode(props.searchInfo.body) }}
+      />
+    </StyledSearchResult>
+  );
+}
+
+SearchResult.propTypes = {
+  isFavourite: PropTypes.bool.isRequired,
+  searchInfo: PropTypes.object.isRequired,
+  onStarClick: PropTypes.func.isRequired,
 }
 
 // STYLED COMPONENTS
@@ -36,7 +41,6 @@ const StyledSearchResult = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-
   margin-bottom: 2rem;
 
   @media (max-width: 991px) {
@@ -48,7 +52,6 @@ const StyledSearchResult = styled.div`
 const TitleContainer = styled.div`
   display: flex;
   align-items: flex-start;
-
   width: 40%;
 
   > p {
@@ -67,7 +70,7 @@ const TitleContainer = styled.div`
 
 const SearchResultInstruction = styled.div`
   width: 60%;
-  padding-left: 20px;
+  padding-left: 50px;
 
   > ul {
     padding: 0;
@@ -90,7 +93,6 @@ const SearchResultInstruction = styled.div`
   @media (max-width: 991px) {
     width: 80%;
     
-
     > ul li {
       font-size: 0.9rem;
     }

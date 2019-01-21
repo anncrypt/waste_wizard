@@ -10,14 +10,21 @@ class SearchBar extends Component {
     e.preventDefault();
 
     this.props.onSubmit(this.state.searchTerm);
-    this.setState({ searchTerm: '' });
+  }
+
+  handleInputChange = (e) => {
+    const val = e.target.value;
+    this.setState({ searchTerm: val });
+    if (val === '') {
+      this.props.clearResults();
+    }
   }
 
   render() {
     return (
       <StyledSearchBar>
         <ContentWrapper>
-          <SearchInput 
+          <SearchForm 
             onSubmit={this.onFormSubmit}
           >
             <InputField>
@@ -25,13 +32,13 @@ class SearchBar extends Component {
               <input
                 type="text"
                 value={this.state.searchTerm}
-                onChange={(e) => this.setState({ searchTerm: e.target.value })}
+                onChange={this.handleInputChange}
               />
             </InputField>
             <SearchInputButton>
               <Search />
             </SearchInputButton>
-          </SearchInput>
+          </SearchForm>
         </ContentWrapper>
       </StyledSearchBar>
     );
@@ -41,15 +48,17 @@ class SearchBar extends Component {
 // STYLED COMPONENTS
 const StyledSearchBar = styled.div``;
 
-const SearchInput = styled.form`
-  width: 100%;
-  margin: 20px 0;
+const SearchForm = styled.form`
   display: flex;
   justify-content: space-around;
+
+  width: 100%;
+  margin: 20px 0;
 `;
 
 const InputField = styled.div`
-  width: 100%;
+  ${'' /* width: 100%; */}
+  flex-grow: 1;
   margin: 0 auto;
 
   > label {
@@ -59,27 +68,31 @@ const InputField = styled.div`
     width:1px;
     height:1px;
     overflow:hidden;
-    }
+  }
     
   > input {
-    width: 90%;
-    height: 100%;
+    width: 100%;
+    height: 45px;
     border: 1px solid #333;
     border-radius: 2px;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
   }
 `;
 
 const SearchInputButton = styled.button`
-  height: 100%;
-  padding: 10px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 50px;
+  margin-left: 20px;
+  padding: 9px 8px;
   cursor: pointer;
   background: #24975E;
-  border-radius: none;
+  border-radius: 3px;
   color: #f0f0f0;
   font-size: 1.5rem;
-  border-radius: 2px;
 `;
-
 
 export default SearchBar;

@@ -16,6 +16,7 @@ const FavList = (props) => {
               key={`fav-${result.title}`}
               isFavourite={true}
               searchInfo={result}
+              onStarClick={props.onListItemClick}
             />
           })
         }
@@ -29,9 +30,15 @@ const FavList = (props) => {
 const StyledFavList = styled.div`
   background-color: #F7FEF9;
   max-width: 100%;
+
+  flex-grow: 1;
 `;
 
-const Heading = styled.h2``;
+const Heading = styled.h2`
+  font-size: 1.7rem;
+  color: #24975E;
+  font-weight: bold;
+`;
 
 const FavListContainer = styled.div``;
 

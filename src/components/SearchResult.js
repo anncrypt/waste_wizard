@@ -47,7 +47,7 @@ const TitleContainer = styled.div`
   width: 50%;
 
   > p {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-top: 0;
   }
 `;
@@ -61,7 +61,7 @@ const SearchResultInstruction = styled.div`
     margin: 0;
 
     > li {
-      font-size: 1rem;
+      font-size: 1.1rem;
 
       > a {
         text-decoration: none;
@@ -82,7 +82,5 @@ const IconWrapper = styled.div`
     margin-top: 0.3rem;
   }
 `;
-
-
 
 export default SearchResult;
